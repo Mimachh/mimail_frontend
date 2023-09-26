@@ -1,0 +1,29 @@
+{
+    "register_title": "Register",
+    "register_subtitle": "Create an account to start sending your mail.",
+    
+    "password_min_length": "Your password must be at least 8 characters long.",
+    "password": "Password",
+    "password_placeholder": "Enter your password",
+
+    "cpassword": "Confirm your password",
+    "cpassword_placeholder": "Confirm your password",
+
+    "mail_min_length": "Your mail must be longer.",
+    "mail_invalid": "Invalid email address",
+
+    "email": "Email",
+    "email_placeholder": "Enter your email",
+
+    "name": "Name",
+    "name_placeholder": "Enter your name",
+
+    "last_name": "Last name",
+    "last_name_placeholder": "Enter your last name",
+
+    "terms": "I agree to the",
+    "terms_link": "terms and conditions",
+
+    "an_account": "Already have an account ?",
+    "signin": "Login"
+}

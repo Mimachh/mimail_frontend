@@ -1,0 +1,27 @@
+{
+    "register_title": "S'inscrire",
+    "register_subtitle": "Créer votre compte pour envoyer vos emails.",
+
+    "password_min_length": "Votre mot de passe doit faire au moins 8 caractères.",
+    "password": "Mot de passe",
+    "password_placeholder": "Entrez votre mot de passe",
+
+    "cpassword": "Confirmez votre mot de passe",
+    "cpassword_placeholder": "Confirmez votre mot de passe",
+
+    "mail_min_length": "Votre mail est anormalement court.",
+    "mail_invalid": "Adresse mail non valide",
+    "email": "Email",
+    "email_placeholder": "Entrez votre email",
+    "terms": "J'accepte les",
+    "terms_link": "conditions d'utilisation",
+
+    "name": "Votre nom",
+    "name_placeholder": "Entrez votre nom",
+
+    "last_name": "Votre prénom",
+    "last_name_placeholder": "Entrez votre prénom",
+
+    "an_account": "Vous avez déjà un compte ?",
+    "signin": "Se connecter"
+}

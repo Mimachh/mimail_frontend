@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+      "strict": true,
+      "module": "es2022",
+      "moduleResolution": "Node",
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["./src/*"]
+      },
+      // "jsx": "react",
+      "jsx": "react-jsx",
+      "esModuleInterop": true,
+      "resolveJsonModule": true, 
+    },
+    "include": [
+      "src/**/*.ts", 
+      "src/**/*.d.ts", 
+      "**/*.ts", 
+      "i18n.ts", 
+      "i18n.js", 
+      "src/**/**/*.tsx",
+      "src/**/*.tsx",
+      "*.d.ts"
+    ],
+}

@@ -1,0 +1,15 @@
+{
+    "login_title": "Se connecter",
+    "login_subtitle": "Connectez-vous à votre compte.",
+    "password_min_length": "Votre mot de passe doit faire au moins 8 caractères.",
+    "password": "Mot de passe",
+    "password_placeholder": "Entrez votre mot de passe",
+
+    "mail_min_length": "Votre mail est anormalement court.",
+    "mail_invalid": "Adresse mail non valide",
+    "email": "Email",
+    "email_placeholder": "Entrez votre email",
+
+    "no_account": "Vous n'avez pas encore de compte?",
+    "signup": "S'inscrire"
+}
