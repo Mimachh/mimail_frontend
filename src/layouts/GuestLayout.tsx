@@ -1,15 +1,20 @@
+import Navbar from '@/components/nav/navbar';
+import useAuthContext from '@/context/AuthContext';
 import React, { ReactNode } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 
-type GuestLayoutProps = {
-  children: ReactNode; // Permet d'accepter n'importe quel élément React comme enfant
-};
 
-const GuestLayout: React.FC<GuestLayoutProps> = ({ children }) => {
-  return (
-    <>
-      {children}
-    </>
-  );
+const GuestLayout = () => {
+
+  const { user } = useAuthContext() as AuthContextType;
+  // return (
+  //   <>
+  //     {children}
+  //   </>
+  // );
+  return !user ? <>
+  <Navbar />
+  <Outlet /> </>: <Navigate to="/dashboard"/>
 };
 
 export default GuestLayout;

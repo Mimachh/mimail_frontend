@@ -1,7 +1,5 @@
-import * as z from "zod"
 import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useEffect, useState } from "react"
 
@@ -13,52 +11,35 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import Loader from "../loader/loader"
+import Loader from "../../loader/loader"
 import {
     Form,
     FormControl,
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
   } from "@/components/ui/form"
   import { Input } from "@/components/ui/input"
-
-
-import { registerFormSchema } from "@/lib/zod"
-import { Checkbox } from "../ui/checkbox"
-import axios from '@/api/axios'
-import { RegisterFormValues } from '@/lib/typeRegisterForm';
-import ErrorMessage from "../common/ErrorMessage"
+import { Checkbox } from "../../ui/checkbox"
+import { RegisterFormValues } from '@/lib/auth/typeRegisterForm';
+import ErrorMessage from "../../common/ErrorMessage"
+import useAuthContext from '@/context/AuthContext';
 
 interface Props {}
 
 function RegisterForm(props: Props) {
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const csrf = () => axios.get('/sanctum/csrf-cookie');
     
+    const authContext = useAuthContext() as AuthContextType;
+    const { errors, register, formLoading } = authContext;
+
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
       }, 200); 
     }, []);
-
-    // const registerForm = useForm<z.infer<typeof registerFormSchema>>({
-    //     resolver: zodResolver(registerFormSchema),
-        // defaultValues: {
-        //     name:"",
-        //     last_name:"",
-        //     email: "",
-        //     password:"",
-        //     password_confirmation:"",
-        //     terms: false,
-        // }
-    // })
-
     const registerForm = useForm<RegisterFormValues>({
         defaultValues: {
             name:"",
@@ -71,25 +52,7 @@ function RegisterForm(props: Props) {
     });
 
     const onSubmitRegisterForm = async (values: RegisterFormValues) => {
-        // console.log(values);
-        await csrf();
-        try {
-            setLoading(true);
-            await axios.post('/register', values);
-            values.name="";
-            values.last_name="";
-            values.email="";
-            values.password="";
-            values.password_confirmation="";
-            values.terms=false;
-            navigate("/");
-        } catch (e: any) {
-            console.log(e);
-            if(e.response.status === 422) {
-              setErrors(e.response.data.errors);
-            } 
-        }
-        setLoading(false);
+      register(values);
     }
 
     return (
@@ -99,10 +62,10 @@ function RegisterForm(props: Props) {
           <CardDescription className='font-clashLight'>{t('register:register_subtitle')}</CardDescription>
         </CardHeader>
         <CardContent className='w-full min-h-[200px]'>
-        {loading ? (
+        {(loading || formLoading) ? (
         <div className='w-full block'>
             <Loader />
-        </div> // Affichez le loader tant que loading est true
+        </div>
       ) : (
         <Form {...registerForm}>
             <form onSubmit={registerForm.handleSubmit(onSubmitRegisterForm)} className="space-y-8">
@@ -236,7 +199,9 @@ function RegisterForm(props: Props) {
                 )}
                 />
                 <div className='space-y-3 w-full'>
-                    <Button type='submit' variant="dark" className='text-white'>{t('common:register_button')}</Button>
+                    <Button
+                    disabled={(loading || formLoading)}
+                    type='submit' variant="dark" className='text-white'>{t('common:register_button')}</Button>
                     <div className='flex flex-wrap gap-1'>
                         <small className='font-clashRegular text-xs'>{t('register:an_account')}</small>
                         <Link to="/login" className='text-xs font-clashMedium underline text-blue-500 transition-colors hover:text-primary'>{t('register:signin')}</Link>

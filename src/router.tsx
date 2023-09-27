@@ -58,38 +58,27 @@ import NotFound from './views/NotFound';
 import Signup from './views/Signup';
 import GuestLayout from './layouts/GuestLayout';
 import AuthLayout from './layouts/AuthLayout';
+import Dashboard from './views/auth/Dashboard';
+import AppLayout from './layouts/AppLayout';
 
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route
-        path="/*"
-        element={
-          <GuestLayout>
-            <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Signup />} />
-              {/* Ajoutez d'autres routes spécifiques à GuestLayout ici */}
-            </Routes>
-          </GuestLayout>
-        }
-      />
-      <Route
-        path="/auth/*"
-        element={
-          <AuthLayout>
-            <Routes>
-              
-              {/* Définissez d'autres routes auth imbriquées ici */}
-            </Routes>
-          </AuthLayout>
-        }
-      />
-      
-      {/* Définissez d'autres routes ici */}
-      <Route path="*" element={<NotFound />} />
+      <Route element={<AuthLayout />}>
+        <Route path='/dashboard' element={<Dashboard />}></Route>
+      </Route>
+
+      <Route element={<GuestLayout />}>
+        <Route path='/login' element={<Login />}></Route>
+        <Route path='/register' element={<Signup />}></Route>
+        
+      </Route>
+
+      <Route element={<AppLayout />}>
+        <Route path='/' element={<App />}></Route>
+        <Route path='/*' element={<NotFound />}></Route>
+      </Route>
     </Routes>
   );
 };

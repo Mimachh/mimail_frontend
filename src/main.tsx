@@ -32,7 +32,7 @@ if (rootElement) {
       <div className='font-clashVariable'>
         <BrowserRouter>
           <AuthProvider>
-            <Navbar />
+            {/* <Navbar /> */}
             <AppRoutes />
           </AuthProvider>
         </BrowserRouter>

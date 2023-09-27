@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -17,48 +15,32 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
   } from "@/components/ui/form"
 
 
 import { Input } from "@/components/ui/input"
 
-import { loginFormSchema } from '@/lib/zod'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import Loader from '../loader/loader';
-import axios from '@/api/axios'
-import ErrorMessage from '../common/ErrorMessage';
+import Loader from '../../loader/loader';
+import ErrorMessage from '../../common/ErrorMessage';
 interface Props {}
-import { LoginFormValues } from '@/lib/typeLoginForm';
+import { LoginFormValues } from '@/lib/auth/typeLoginForm';
 import useAuthContext from '@/context/AuthContext';
 
 function LoginForm(props: Props) {
     const {} = props
 
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    // const [errors, setErrors] = useState<{ [key: string]: string }>({});
-    // const csrf = () => axios.get('/sanctum/csrf-cookie');
-
     const authContext = useAuthContext() as AuthContextType;
     const { user, errors, login, formLoading } = authContext;
     useEffect(() => {
-      // Chargez vos données ou effectuez d'autres opérations asynchrones ici
-      // Une fois le chargement terminé, mettez setLoading(false) pour masquer le loader
       setTimeout(() => {
         setLoading(false);
       }, 600); // Par exemple, après 2 secondes
     }, []);
 
-    // const loginForm = useForm<z.infer<typeof loginFormSchema>>({
-    //     resolver: zodResolver(loginFormSchema),
-    //     defaultValues: {
-    //         email: "",
-    //         password:""
-    //     }
-    // })
     const loginForm = useForm<LoginFormValues>({
       defaultValues: {
         email:"",
@@ -67,23 +49,7 @@ function LoginForm(props: Props) {
     });
 
     const onSubmitLoginForm = async (values: LoginFormValues) => {
-      setLoading(true);
-        // console.log(values);
-        // await csrf();
-        // try {
-        //   setLoading(true);
-        //   await axios.post('/login', values);
-        //   values.email="";
-        //   values.password="";
-        //   navigate("/");
-        // } catch (e: any) {
-        //   console.log(e);
-        //   if(e.response.status === 422) {
-        //     setErrors(e.response.data.errors);
-        //   }    
-        // }
-        login({values});
-        setLoading(false);
+      login({values});
     }
 
 

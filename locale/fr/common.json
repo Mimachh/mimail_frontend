@@ -8,6 +8,15 @@
 
 
     "login_button": "Connexion",
-    "register_button": "Inscription"
+    "register_button": "Inscription",
+
+    "loading": "Chargement",
+
+    "my_account": "Mon compte",
+    "dashboard": "Tableau de bord",
+    "logout": "Déconnexion",
+    "profile": "Mon profil",
+    "settings": "Paramètres",
+    "api": "Mes clés API"
     
 }

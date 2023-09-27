@@ -1,4 +1,4 @@
-import RegisterForm from '@/components/auth/RegisterForm'
+import RegisterForm from '@/components/auth/register/RegisterForm'
 import Container from '@/layouts/container'
 import FullWidthScreen from '@/layouts/fullWidthScreen'
 

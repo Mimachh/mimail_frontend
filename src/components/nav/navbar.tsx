@@ -2,7 +2,7 @@ import Container from '@/layouts/container'
 import FullWidthScreen from '@/layouts/fullWidthScreen'
 import React, { useEffect, useState } from 'react'
 import { cn } from "@/lib/utils"
-// import { Icons } from "@/components/icons"
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,7 +10,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { navLinkComponent } from '@/lib/constantsLinkNav'
 import { ToggleLang } from '../toggles/lang'
@@ -19,7 +18,9 @@ import Logo from '../Logo'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
-
+import useAuthContext from '@/context/AuthContext';
+import SimpleLinks from './Links/SimpleLinks'
+import { AuthDropdown } from './auth/AuthDropdown'
 
 interface Props {}
 
@@ -29,17 +30,15 @@ function Navbar(props: Props) {
     const { t } = useTranslation();
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
     
+    const authContext = useAuthContext() as AuthContextType;
+    const { user, logout, userLoading } = authContext;
+
     useEffect(() => {
-      // Mettre à jour l'état lorsque l'URL change
       const handleLocationChange = () => {
         setCurrentPath(window.location.pathname);
       };
-  
-      // Ajouter un écouteur d'événements pour le changement d'URL
       window.addEventListener('popstate', handleLocationChange);
-  
       return () => {
-        // Nettoyer l'écouteur d'événements lors du démontage du composant
         window.removeEventListener('popstate', handleLocationChange);
       };
     }, []);
@@ -49,7 +48,7 @@ function Navbar(props: Props) {
             <Container className='my-0 py-0'>
                 <nav className='h-12 flex items-center justify-between'>
                     <Logo />
-                    <div className='flex items-center px-3 gap-3'>
+                    <div className='hidden md:flex items-center px-5 gap-3'>
                         <NavigationMenu>
                             <NavigationMenuList>
                                 <NavigationMenuItem>
@@ -92,8 +91,8 @@ function Navbar(props: Props) {
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                 <NavigationMenuTrigger  className='bg-transparent navLink'>Components</NavigationMenuTrigger>
-                                <NavigationMenuContent className='bg-customBlack'>
-                                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                                <NavigationMenuContent className='bg-customBlack '>
+                                    <ul className="grid w-[400px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[450px] ">
                                     {components.map((component) => (
                                         <ListItem
                                         key={component.title}
@@ -107,29 +106,25 @@ function Navbar(props: Props) {
                                     </ul>
                                 </NavigationMenuContent>
                                 </NavigationMenuItem>
-                                <NavigationMenuItem>
-                                    <NavigationMenuLink href='/auth/dashboard' className={cn("navLink", currentPath === '/auth/dashboard' ? 'bg-customYellow text-customBlack' : '', navigationMenuTriggerStyle())}>
-                                        Documentation
-                                    </NavigationMenuLink>
-                                </NavigationMenuItem>
-                                <NavigationMenuItem>
-                                    <NavLink to='/login' 
-                                      className={({ isActive }) => cn(isActive ? 'bg-customYellow text-customBlack' : '', navigationMenuTriggerStyle(), 'navLink')}>
-                                        Connexion
-                                    </NavLink>
-                                </NavigationMenuItem>
-                                <NavigationMenuItem>
-                                    <NavLink to='/register' 
-                                      className={({ isActive }) => cn(isActive ? 'bg-customYellow text-customBlack' : '', navigationMenuTriggerStyle(), 'navLink')}>
-                                        Inscription
-                                    </NavLink>
-                                </NavigationMenuItem>
+                                {/* Auth */}
+                                {user ?
+                                <>
+                                    <AuthDropdown />
+                                </> : 
+                                <>
+                                    <SimpleLinks 
+                                    to='/register'
+                                    title="S'inscrire"
+                                    />
+                                    <SimpleLinks 
+                                    to='/login'
+                                    title='Connexion'
+                                    />
+                                </>
+                                }
                             </NavigationMenuList>
                         </NavigationMenu>
                         <ToggleLang />
-                        
-
-
                     </div>
                 </nav>
             </Container>

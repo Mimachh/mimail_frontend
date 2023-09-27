@@ -1,4 +1,4 @@
-import LoginForm from '@/components/auth/loginForm';
+import LoginForm from '@/components/auth/login/loginForm';
 import Container from '@/layouts/container';
 import FullWidthScreen from '@/layouts/fullWidthScreen';
 import React from 'react';

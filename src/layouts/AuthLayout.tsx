@@ -1,17 +1,21 @@
+import useAuthContext from '@/context/AuthContext';
 import React, { ReactNode } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 
-type AuthLayoutProps = {
-  children: ReactNode; // Permet d'accepter n'importe quel élément React comme enfant
-};
 
-const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
-  return (
-    <>
-    auth
-      {/* Votre mise en page ici */}
-      {children}
-    </>
-  );
+
+const AuthLayout = () => {
+
+  const { user } = useAuthContext() as AuthContextType;
+
+
+  // return (
+  //   <>
+  //   auth
+  //     {children}
+  //   </>
+  // );
+  return user ? <Outlet /> : <Navigate to="/login"/>
 };
 
 export default AuthLayout;
