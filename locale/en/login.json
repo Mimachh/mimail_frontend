@@ -13,6 +13,16 @@
     "email_placeholder": "Enter your email",
 
     "no_account": "Don't have account yet?",
-    "signup": "Sign up"
+    "signup": "Sign up",
+
+    "forgot_password": "Forgotten password ?",
+
+    "send_link_to_renew_password": "Sent link to renew your password",
+    "confirm_link_sent": "We have emailed your password reset link.",
+    "validation_mail_link_sent": "We have emailed your validation link.",
+
+    "logout_success": "Logged out successfully ! ",
+
+    "password_well_reset": "Your password has been reset !"
 
 }

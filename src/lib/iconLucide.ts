@@ -16,7 +16,8 @@ export const iconComponents: Record<string, Icons.LucideIcon> = {
     UserPlus: Icons.UserPlus,
     Users: Icons.Users,
     Dashboard: Icons.LayoutDashboard,
-    Key: Icons.KeyRound
+    Key: Icons.KeyRound,
+    Check: Icons.CheckCircle,
   };
 
   

@@ -15,5 +15,9 @@
     "logout": "Logout",
     "profile": "Profile",
     "settings": "Settings",
-    "api": "API Keys"
+    "api": "API Keys",
+    "send": "Send",
+
+    "welcome_back": "Welcome back !",
+    "something_went_wrong": "Something went wrong !"
 }

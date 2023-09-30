@@ -12,12 +12,12 @@ function Loader(props: Props) {
     return (
         <>
         { classname ?
-            <div className={cn('pb-12 md:pb-20 pt-8 md:pt-12 md:px-24 px-12 rounded-xl relative',classname)}>
-                <div className="loader z-50"></div> 
+            <div className={cn('pb-12 md:pb-20 pt-8 md:pt-12 px-24 rounded-xl relative',classname)}>
+                <div className="loader"></div> 
                 <p className='absolute bottom-[10px] left-[50%] translate-x-[-50%] text-sm text-primary'>{t("common:loading")} ...</p>
             </div>
         :
-            <div className="loader z-50"></div> 
+            <div className="loader"></div> 
         }
         </>
 

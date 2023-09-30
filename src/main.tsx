@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-
+import { Toaster } from 'react-hot-toast';
 import './index.css';
 // import i18n (needs to be bundled ;))
 import '../i18n';
 
-import { BrowserRouter, RouterProvider, Routes
+import { BrowserRouter
  } from 'react-router-dom';
-import Navbar from './components/nav/navbar';
-import router from './router';
+
 import AppRoutes from './router';
 import { AuthProvider } from './context/AuthContext';
 
@@ -18,21 +17,13 @@ const rootElement = document.getElementById('root');
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      {/* <div className='font-clashVariable'>
-      <BrowserRouter>
-      <Navbar />
-      <Routes>
-        
-      </Routes>
-      </BrowserRouter>
-      <RouterProvider router={router} />
-      </div> */}
 
     <React.StrictMode>
       <div className='font-clashVariable'>
         <BrowserRouter>
           <AuthProvider>
             {/* <Navbar /> */}
+            <Toaster />
             <AppRoutes />
           </AuthProvider>
         </BrowserRouter>

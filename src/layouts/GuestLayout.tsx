@@ -1,4 +1,4 @@
-import Navbar from '@/components/nav/navbar';
+import NavBar from '@/components/nav/NavBar';
 import useAuthContext from '@/context/AuthContext';
 import React, { ReactNode } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
@@ -13,7 +13,7 @@ const GuestLayout = () => {
   //   </>
   // );
   return !user ? <>
-  <Navbar />
+  <NavBar />
   <Outlet /> </>: <Navigate to="/dashboard"/>
 };
 

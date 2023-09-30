@@ -2,18 +2,28 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from '@/api/axios'
 import { useNavigate } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+import { successToast } from "@/lib/toast/successToast";
+import { errorToast } from "@/lib/toast/errorToast";
+import { notifyWelcome } from "@/lib/toast/welcomeToast";
+
 const AuthContext = createContext({});
 
 
-
 export const AuthProvider = ({children}: any) => {
-    const [user, setUser] = useState(null);
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    const [user, setUser] = useState<{ last_name: string | null } | null>(null);
+    const [errors, setErrors] = useState<string[]>([]);
     const [userLoading, setUserLoading] = useState(false);
     const [formLoading, setFormLoading] = useState(false);
     const navigate = useNavigate();
+    const { t } = useTranslation();
+    // const csrf = () => axios.get('/sanctum/csrf-cookie');
+    const csrf = async (): Promise<any> => {
+        const response = await axios.get('/sanctum/csrf-cookie');
+        return response; // Assurez-vous que la propriété csrf_token est correcte dans votre API
+    }
 
-    const csrf = () => axios.get('/sanctum/csrf-cookie');
+
 
     const getUser = async () => {
         setUserLoading(true);
@@ -29,13 +39,15 @@ export const AuthProvider = ({children}: any) => {
             await axios.post('/login', values);
             await getUser();
             navigate("/");
+            notifyWelcome(t('common:welcome_back'));   
         } catch (e: any) {
             console.log(e);
+            errorToast(t('common:something_went_wrong'));
             if(e.response.status === 422) {
               setErrors(e.response.data.errors);
             }    
         } finally {
-            setFormLoading(false); // Quelle que soit l'issue de la requête, assurez-vous de définir loading sur false à la fin
+            setFormLoading(false);
         }
     }
 
@@ -52,6 +64,7 @@ export const AuthProvider = ({children}: any) => {
               setErrors(e.response.data.errors);
             }    
         }
+        setFormLoading(false);
     }
 
     const logout = () => {
@@ -59,16 +72,18 @@ export const AuthProvider = ({children}: any) => {
         axios.post('/logout').then(() => {
             setUser(null);
         });
-
+        successToast(t('login:logout_success'))
         setUserLoading(false);
     };
+    
     useEffect(() => {
         if(!user) {
             getUser();
         }
     }, [])
 
-    return <AuthContext.Provider value={{ user, errors, getUser, login, register, userLoading, formLoading, logout }}>
+    return <AuthContext.Provider 
+    value={{ user, errors, setErrors, getUser, login, register, userLoading, formLoading, logout, csrf }}>
         {children}
     </AuthContext.Provider>
 }

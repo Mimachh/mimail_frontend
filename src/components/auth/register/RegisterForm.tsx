@@ -33,10 +33,12 @@ function RegisterForm(props: Props) {
     const [loading, setLoading] = useState(true);
     
     const authContext = useAuthContext() as AuthContextType;
-    const { errors, register, formLoading } = authContext;
+    const { errors, setErrors, register, formLoading } = authContext;
 
     useEffect(() => {
+      
       setTimeout(() => {
+        setErrors([]);
         setLoading(false);
       }, 200); 
     }, []);

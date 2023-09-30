@@ -17,6 +17,11 @@
     "logout": "Déconnexion",
     "profile": "Mon profil",
     "settings": "Paramètres",
-    "api": "Mes clés API"
+    "api": "Mes clés API",
+
+    "send": "Envoyer",
+
+    "welcome_back": "Bon retour parmi nous !",
+    "something_went_wrong": "Une erreur est survenue !"
     
 }

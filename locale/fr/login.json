@@ -11,5 +11,14 @@
     "email_placeholder": "Entrez votre email",
 
     "no_account": "Vous n'avez pas encore de compte?",
-    "signup": "S'inscrire"
+    "signup": "S'inscrire",
+
+    "forgot_password": "Mot de passe oublié ?",
+    "send_link_to_renew_password": "Envoyez un lien par mail pour modifier votre mot de passe",
+    "confirm_link_sent": "Nous vous avons envoyé un mail avec un lien pour modifier votre mot de passe.",
+    "validation_mail_link_sent": "Le lien de vérification vous a été envoyé.",
+
+    "logout_success": "Déconnexion réussie !",
+
+    "password_well_reset": "Mot de passe modifié avec succès  !"
 }

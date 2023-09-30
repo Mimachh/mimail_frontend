@@ -8,24 +8,28 @@ import homepageTranslationEN from './locale/en/homepage.json'
 import commonTranslationEN from './locale/en/common.json'
 import loginFormTranslationEN from "./locale/en/login.json"
 import registerFormTranslationEN from "./locale/en/register.json"
+import emailTranslationEN from "./locale/en/email.json"
 
 import homepageTranslationFR from './locale/fr/homepage.json'
 import commonTranslationFR from './locale/fr/common.json'
 import loginFormTranslationFR from "./locale/fr/login.json"
 import registerFormTranslationFR from "./locale/fr/register.json"
+import emailTranslationFR from "./locale/fr/email.json"
 
 const resources = {
   en: {
     homepage: homepageTranslationEN,
     common: commonTranslationEN,
     login: loginFormTranslationEN,
-    register: registerFormTranslationEN
+    register: registerFormTranslationEN,
+    email: emailTranslationEN
   },
   fr: {
     homepage: homepageTranslationFR,
     common: commonTranslationFR,
     login: loginFormTranslationFR,
-    register: registerFormTranslationFR
+    register: registerFormTranslationFR,
+    email: emailTranslationFR
   }
 }
 i18n

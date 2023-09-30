@@ -24,54 +24,86 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import Loader from '../../loader/loader';
 import ErrorMessage from '../../common/ErrorMessage';
-interface Props {}
-import { LoginFormValues } from '@/lib/auth/typeLoginForm';
 import useAuthContext from '@/context/AuthContext';
+import axios from '@/api/axios';
+import { successToast } from '@/lib/toast/successToast';
+import { errorToast } from '@/lib/toast/errorToast';
 
-function LoginForm(props: Props) {
-    const {} = props
+
+type FormErrors = {
+    email?: string[];
+};
+
+function ForgotPasswordForm() {
 
     const { t } = useTranslation();
     const [loading, setLoading] = useState(true);
-  
+    const [errors, setErrors] = useState<FormErrors>({});
+    const [status, setStatus] = useState("");
+
     const authContext = useAuthContext() as AuthContextType;
-    const { errors, setErrors, login, formLoading } = authContext;
+    const { csrf } = authContext;
+
     useEffect(() => {
       setTimeout(() => {
-        setErrors([]);
+        setErrors({});
         setLoading(false);
-      }, 600); // Par exemple, après 2 secondes
+      }, 600);
     }, []);
 
-    const loginForm = useForm<LoginFormValues>({
+    const forgotPasswordForm = useForm<ForgotPasswordFormValues>({
       defaultValues: {
         email:"",
-        password:"",
       }
     });
 
-    const onSubmitLoginForm = async (values: LoginFormValues) => {
-      
-      login({values});
+  
+    // const csrf = () => axios.get('/sanctum/csrf-cookie');
+    const onSubmitForgotPasswordForm = async (values: ForgotPasswordFormValues) => {
+        await csrf();
+        setErrors({});
+        setStatus("");
+        try {
+            const response = await axios.post('/forgot-password', values);
+            if(response.data.status === "We have emailed your password reset link.") {
+                setStatus(t('login:confirm_link_sent'));
+                successToast(t('login:confirm_link_sent'));
+            }
+            forgotPasswordForm.reset();
+        } catch (e: any) {
+            console.log(e);
+            errorToast(t('common:something_went_wrong'))
+            if(e.response.status === 422) {
+              setErrors(e.response.data.errors);
+            }    
+        }
     }
 
 
     return (
         <Card className="w-[350px] mx-auto">
-        <CardHeader>
-          <CardTitle >{t('login:login_title')}</CardTitle>
-          <CardDescription className='font-clashLight'>{t('login:login_subtitle')}</CardDescription>
+        <CardHeader className='pb-2'>
+          <CardTitle >{t('login:forgot_password')}</CardTitle>
+          <CardDescription className='font-clashLight'>{t('login:send_link_to_renew_password')}</CardDescription>
         </CardHeader>
         <CardContent className='w-full min-h-[200px]'>
-        {(loading || formLoading) ? (
+        {loading ? (
         <div className='w-full block'>
             <Loader />
         </div> // Affichez le loader tant que loading est true
       ) : (
-        <Form {...loginForm}>
-            <form onSubmit={loginForm.handleSubmit(onSubmitLoginForm)} className="space-y-8">
+        <>
+        {status && 
+        <div className='bg-green-600 m-2 p-2 rounded-xl text-sm text-white'>
+            {status}
+        </div>
+        }
+        <Form {...forgotPasswordForm}>
+            <form 
+            onSubmit={forgotPasswordForm.handleSubmit(onSubmitForgotPasswordForm)} 
+            className="space-y-8">
                 <FormField
-                control={loginForm.control}
+                control={forgotPasswordForm.control}
                 name="email"
                 render={({ field }) => (
                     <FormItem>
@@ -90,27 +122,8 @@ function LoginForm(props: Props) {
                     </FormItem>
                 )}
                 />
-                <FormField
-                control={loginForm.control}
-                name="password"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel className='capitalize'>{t('login:password')}</FormLabel>
-                    <FormControl>
-                        <Input placeholder={t('login:password_placeholder')}
-                        type='password'
-                        {...field} />
-                    </FormControl>
-                    {errors.password  &&
-                      <ErrorMessage 
-                        message={errors.password[0]}
-                      />
-                    }
-                    </FormItem>
-                )}
-                />
                 <div className='space-y-3 w-full'>
-                    <Button disabled={formLoading} type='submit' variant="dark" className='text-white disabled:bg-gray-400 disabled:text-customBlack'>{t('common:login_button')}</Button>
+                    <Button disabled={loading} type='submit' variant="dark" className='text-white disabled:bg-gray-400 disabled:text-customBlack'>{t('common:send')}</Button>
                     <div className='flex flex-wrap gap-1'>
                         <small className='font-clashRegular text-xs'>{t('login:no_account')}</small>
                         <Link to="/register" className='text-xs font-clashMedium underline text-blue-500 transition-colors hover:text-primary'>{t('login:signup')}</Link>
@@ -119,10 +132,12 @@ function LoginForm(props: Props) {
                 </div>
             </form>
             <Link 
-            to="/forgot-password" 
+            to="/login" 
             className='block pt-3 text-xs font-clashMedium underline text-blue-500 transition-colors hover:text-primary'
-            >{t('login:forgot_password')}</Link>
+            >{t('login:login_title')}?</Link>
         </Form>
+        </>
+
       )}
   
         </CardContent>
@@ -130,4 +145,4 @@ function LoginForm(props: Props) {
     )
 }
 
-export default LoginForm
+export default ForgotPasswordForm
