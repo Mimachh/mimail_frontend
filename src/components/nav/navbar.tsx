@@ -22,6 +22,9 @@ import useAuthContext from '@/context/AuthContext';
 import SimpleLinks from './Links/SimpleLinks'
 import { AuthDropdown } from './auth/AuthDropdown'
 import NavContent from './NavContent'
+import ToggleMenuMobile from '../toggles/menuMobile'
+import { AnimatePresence, useCycle } from 'framer-motion'
+import NavMobileMenu from './NavMobileMenu'
 
 interface Props {}
 
@@ -34,27 +37,70 @@ function NavAuth(props: Props) {
     const authContext = useAuthContext() as AuthContextType;
     const { user, logout, userLoading } = authContext;
 
+    // mobile Menu
+    const [mobileNav, toggleMobileNav] = useCycle(false, true);
+    function toggleMobileButton() {
+      toggleMobileNav();
+    }
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+    const [areWeLarge, setAreWeLarge] = useState(isLargeScreen);
+
     useEffect(() => {
+
+      const handleResize = () => {
+        if (typeof window !== 'undefined') {
+          const newIsLargeScreen = window.innerWidth > 1024;
+          setIsLargeScreen(newIsLargeScreen);
+          setAreWeLarge(newIsLargeScreen);
+          toggleMobileNav(0);
+        }
+      }
+      handleResize();
+      if(typeof window !== 'undefined') {
+        window.addEventListener('resize', handleResize);
+      }
+
       const handleLocationChange = () => {
         setCurrentPath(window.location.pathname);
       };
       window.addEventListener('popstate', handleLocationChange);
+      
       return () => {
         window.removeEventListener('popstate', handleLocationChange);
+        window.removeEventListener('resize', handleResize);
       };
     }, []);
 
+    
     return (
         <FullWidthScreen className='bg-customBlack text-customYellow'>
             <Container className='my-0 py-0'>
-                <nav className='h-12 flex items-center justify-between'>
-                    Auth
+                <nav className='z-50 relative h-12 flex items-center justify-between'>
                     <Logo />
-                    <div className='hidden md:flex items-center px-5 gap-3'>
+                    <div className='hidden lg:flex items-center px-5 gap-3'>
                         <NavContent />
                     </div>
+                    {/* <div className='lg:hidden block'> */}
+                    <AnimatePresence>
+                      { !areWeLarge &&
+                        <ToggleMenuMobile 
+                        areWeLarge={areWeLarge}
+                        toggleMobileButton={toggleMobileButton}
+                        mobileNav={mobileNav}
+                        />
+                      }
+                      {areWeLarge}
+                    </AnimatePresence>
+                      
+                    {/* </div> */}
                 </nav>
             </Container>
+            { mobileNav &&
+              <NavMobileMenu 
+              isLargeScreen={isLargeScreen}
+              toggleMobileButton={toggleMobileButton}
+            />
+            }
 
         </FullWidthScreen>
 
