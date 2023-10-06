@@ -1,3 +1,6 @@
+// Menu components Desktop
+import { LayoutDashboard, Settings, KeyRound, User, Layers } from "lucide-react"
+
 export const navLinkComponent: { title: string; href: string; description: string }[] = [
     {
       title: "Alert Dialog",
@@ -34,4 +37,41 @@ export const navLinkComponent: { title: string; href: string; description: strin
       description:
         "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
     },
+]
+
+
+export const sidebarRoutes = [
+  {
+      label: "Dashboard",
+      icon: LayoutDashboard,
+      href: "/dashboard",
+      color: "text-sky-500",
+     
+  },
+  {
+      label: "Mes sites",
+      icon: Layers,
+      href: "/",
+      color: 'text-sky-400'
+  },
+  {
+      label: "Mes clés API",
+      icon: KeyRound,
+      href: "/",
+      color: "text-violet-500"
+  },
+  {
+      label: "Mon profil",
+      icon: User,
+      href: "/profile",
+      color: "text-pink-700",
+      beta: true
+  },
+  {
+      label: "Paramètres",
+      icon: Settings,
+      href: "/video",
+      color: "text-orange-700",
+      beta: true
+  }
 ]

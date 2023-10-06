@@ -11,26 +11,21 @@ import useAuthContext from './context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Loader from './components/loader/loader';
 import axios from './api/axios';
-import toast from 'react-hot-toast';
 import { successToast } from './lib/toast/successToast';
+import toast from 'react-hot-toast';
 
 
 
 const MyComponent: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user, userLoading } = useAuthContext() as AuthContextType;
-  const notify = () => toast.success((t) => (
-    <span>
-      Custom and <b>bold</b>
-      <button onClick={() => toast.dismiss(t.id)}>
-        Dismiss
-      </button>
-    </span>
-  ));
+  const { user, userLoading, hasRole } = useAuthContext() as AuthContextType;
+
+  const isAuthorized = hasRole('User');
+
   const csrf = () => axios.get('/sanctum/csrf-cookie');
   const verify = async () => {
-      console.log('verify')
+    console.log('verify')
     await csrf();
     try {
       const data = await axios.post('/email/verification-notification/resend');
@@ -50,6 +45,28 @@ const MyComponent: React.FC = () => {
     
   }
 
+  const testMiddleware = async () => {
+    await csrf();
+    try {
+      const data = await axios.get('/api/test');
+      
+      console.log(data);
+    
+    } catch (e: any) {
+        console.log(e.response.data.error);
+        // if(e.response.status === 422) {
+        //   console.log(e.response.data.errors);
+        // }  
+        // if(e.response.status === 409) {
+        //   console.log("non validé");
+        // }    
+        if(e.response.status === 403) {
+          console.log("non");
+          toast.error(t('common:unauthorized_role'))
+        }    
+    
+    } 
+  }
 
   return (
     <FullWidthScreen className='bg-customYellow'>
@@ -61,12 +78,15 @@ const MyComponent: React.FC = () => {
           :
           <>
             <h1>Hello, World!</h1>
+            {isAuthorized ? (
+        <p>Vous êtes un administrateur.</p>
+      ) : (
+        <p>Vous n'êtes pas un administrateur.</p>
+      )}
             {!userLoading && 
             <Badge>{user?.last_name}</Badge>
             }
-  
-              <button onClick={notify}>Make me a toast</button>
-            <Button variant='yellow' onClick={verify}>Button</Button>
+            <Button variant='yellow' onClick={testMiddleware}>Button</Button>
             <div>
               <ToggleLang />
             </div>

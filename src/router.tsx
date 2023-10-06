@@ -12,6 +12,9 @@ import VerifiedEmail from './views/Emails/VerifiedEmail';
 import AlreadyVerifiedEmail from './views/Emails/AlreadyVerifiedEmail';
 import ForgottenPassword from './views/auth/ForgottenPassword';
 import ResetPassword from './views/auth/ResetPassword';
+import ProfileIndex from './components/auth/dashboard/profile/ProfileIndex';
+
+
 
 
 const AppRoutes = () => {
@@ -32,6 +35,9 @@ const AppRoutes = () => {
         <Route path='/*' element={<NotFound />}></Route>
 
         {/* Email vérification */}
+        {/* Arevoir */}
+        <Route path='/email/should-be-validated' element={<VerifiedEmail />}></Route>
+
         <Route path='/email/verify/success' element={<VerifiedEmail />}></Route>
         <Route path='/email/verify/already-success' element={<AlreadyVerifiedEmail />}></Route>
 
@@ -42,6 +48,7 @@ const AppRoutes = () => {
       {/* Dashboard */}
       <Route element={<AuthLayout />}>
         <Route path='/dashboard' element={<Dashboard />}></Route>
+        <Route path='/profile' element={<ProfileIndex />}></Route>
       </Route>
     </Routes>
   );

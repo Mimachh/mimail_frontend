@@ -25,5 +25,7 @@
     "terms_link": "terms and conditions",
 
     "an_account": "Already have an account ?",
-    "signin": "Login"
+    "signin": "Login",
+
+    "register_success": "You've been registered, please check your email to validate your registration."
 }

@@ -9,12 +9,14 @@ import commonTranslationEN from './locale/en/common.json'
 import loginFormTranslationEN from "./locale/en/login.json"
 import registerFormTranslationEN from "./locale/en/register.json"
 import emailTranslationEN from "./locale/en/email.json"
+import page400TranslationEN from "./locale/en/400.json"
 
 import homepageTranslationFR from './locale/fr/homepage.json'
 import commonTranslationFR from './locale/fr/common.json'
 import loginFormTranslationFR from "./locale/fr/login.json"
 import registerFormTranslationFR from "./locale/fr/register.json"
 import emailTranslationFR from "./locale/fr/email.json"
+import page400TranslationFR from "./locale/fr/400.json"
 
 const resources = {
   en: {
@@ -22,14 +24,16 @@ const resources = {
     common: commonTranslationEN,
     login: loginFormTranslationEN,
     register: registerFormTranslationEN,
-    email: emailTranslationEN
+    email: emailTranslationEN,
+    page400: page400TranslationEN
   },
   fr: {
     homepage: homepageTranslationFR,
     common: commonTranslationFR,
     login: loginFormTranslationFR,
     register: registerFormTranslationFR,
-    email: emailTranslationFR
+    email: emailTranslationFR,
+    page400: page400TranslationFR
   }
 }
 i18n

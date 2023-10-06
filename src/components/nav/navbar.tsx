@@ -40,7 +40,9 @@ function NavAuth(props: Props) {
     // mobile Menu
     const [mobileNav, toggleMobileNav] = useCycle(false, true);
     function toggleMobileButton() {
+      mobileNav === false ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto";
       toggleMobileNav();
+      
     }
     const [isLargeScreen, setIsLargeScreen] = useState(false);
     const [areWeLarge, setAreWeLarge] = useState(isLargeScreen);
@@ -95,12 +97,14 @@ function NavAuth(props: Props) {
                     {/* </div> */}
                 </nav>
             </Container>
+            <AnimatePresence>
             { mobileNav &&
               <NavMobileMenu 
               isLargeScreen={isLargeScreen}
               toggleMobileButton={toggleMobileButton}
             />
             }
+            </AnimatePresence>
 
         </FullWidthScreen>
 

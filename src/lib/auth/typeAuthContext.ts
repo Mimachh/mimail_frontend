@@ -9,4 +9,8 @@ interface AuthContextType {
     login: (data: any) => void; // Remplacez `any` par le type approprié pour les données de connexion
     register: (data: any) => void; // Remplacez `any` par le type approprié pour les données d'inscription
     csrf: () => Promise<string>;
+    roles: UserRole[];
+    hasRole: (requiredRole: UserRole) => boolean; 
 }
+
+type UserRole = string;

@@ -23,5 +23,7 @@
     "last_name_placeholder": "Entrez votre prénom",
 
     "an_account": "Vous avez déjà un compte ?",
-    "signin": "Se connecter"
+    "signin": "Se connecter",
+
+    "register_success": "Inscription réussie, merci de cliquer sur le lien de vérification envoyé par mail pour le valider."
 }

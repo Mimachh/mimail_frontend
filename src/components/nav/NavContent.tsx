@@ -87,10 +87,6 @@ function NavContent(props: Props) {
                     </> : 
                     <>
                         <SimpleLinks 
-                        to='/register'
-                        title="S'inscrire"
-                        />
-                        <SimpleLinks 
                         to='/login'
                         title='Connexion'
                         />

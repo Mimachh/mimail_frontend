@@ -9,7 +9,8 @@
 
     "login_button": "Connexion",
     "register_button": "Inscription",
-
+    "go_back_home": "Retour à la page principale",
+    "contact_support": "Contacter le support",
     "loading": "Chargement",
 
     "my_account": "Mon compte",
@@ -22,6 +23,8 @@
     "send": "Envoyer",
 
     "welcome_back": "Bon retour parmi nous !",
-    "something_went_wrong": "Une erreur est survenue !"
+    "something_went_wrong": "Une erreur est survenue !",
+
+    "unauthorized_role": "Vous n'êtes pas autorisé à faire ça !"
     
 }
