@@ -1,23 +1,87 @@
+import axios from "@/api/axios";
+import ErrorMessage from "@/components/common/ErrorMessage";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import useAuthContext from "@/context/AuthContext";
+import { PersonnalInformationValues } from "@/lib/auth/dashboard/typePersonnalInformationForm";
+import { errorToast } from "@/lib/toast/errorToast";
+import { successToast } from "@/lib/toast/successToast";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 
 interface Props {
   user: any;
+  csrf: () => Promise<string>;
 }
+type FormErrors = {
+  email?: string[];
+  name?: string[];
+  last_name?: string[];
+};
 
-function PersonalInformation(user: Props) {
-    const userData = user.user;
+function PersonalInformation(props: Props) {
+    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState<FormErrors>({});
+    const userData = props.user;
+    const csrfData = props.csrf;
+    const { t } = useTranslation()
+    // console.log(userData)
+    // const authContext = useAuthContext() as AuthContextType;
+    // const { csrf } = authContext;
+    useEffect(() => {
+      setTimeout(() => {
+        setErrors({});
+        // setLoading(false);
+      }, 600);
+    }, []);
+
+    const personnalInformationForm = useForm<PersonnalInformationValues>({
+      defaultValues: {
+        email: userData.email,
+        last_name: userData.last_name,
+        name: userData.name,
+        // avatar: "",
+      }
+    });
+
+    const onSubmitPersonnalInformationForm = async (values: PersonnalInformationValues) => {
+      setLoading(true);
+      await csrfData();
+      setErrors({});
+      try {
+        const response = await axios.put(`/api/user/${userData.id}`, values);
+        console.log(response)
+        if(response.data.message === 'Profil mis à jour avec succès') {
+          successToast(t('profile:update_success'))
+        }
+      } catch (error: any) {
+        errorToast(t('common:something_went_wrong'))
+        console.log(error);
+        if(error.response.status === 422) {
+          setErrors(error.response.data.errors);
+        }  
+      } finally {
+        setLoading(false);
+      }
+    }
+    // Penser à ajouter le userLoading
+
+
     return (
 
-                      <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-                        <div>
-                          <h2 className="text-base font-semibold leading-7">Personal Information</h2>
-                          <p className="mt-1 text-sm leading-6 text-gray-400">
-                            Use a permanent address where you can receive mail.
-                          </p>
-                        </div>
-        
-                        <form className="md:col-span-2">
-                          <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+      <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+        <div>
+          <h2 className="text-base font-semibold leading-7">{t('profile:personal_information')}</h2>
+          <p className="mt-1 text-sm leading-6 text-gray-400">
+            {t('profile:personal_information')}
+          </p>
+        </div>
+        <Form {...personnalInformationForm}>
+          <form onSubmit={personnalInformationForm.handleSubmit(onSubmitPersonnalInformationForm)} className="md:col-span-2">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
                             <div className="col-span-full flex items-center gap-x-8">
                               <img
                                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -25,6 +89,8 @@ function PersonalInformation(user: Props) {
                                 className="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover"
                               />
                               <div>
+                                
+                                {/* FORM FIELD ICI */}
                                 <button
                                   type="button"
                                   className="rounded-md bg-customYellow px-3 py-2 text-sm font-semibold shadow-sm hover:bg-customYellow-foreground"
@@ -35,65 +101,84 @@ function PersonalInformation(user: Props) {
                               </div>
                             </div>
         
-                            <div className="sm:col-span-3">
-                              <label htmlFor="first-name" className="block text-sm font-medium leading-6">
-                                First name 
-                              </label>
-                              <div className="mt-2">
-                                <input
-                                  type="text"
-                                  name="first-name"
-                                  id="first-name"
-                                  autoComplete="given-name"
-                                  className="customProfileFormInputText"
-                                  value={userData.last_name}
-                                />
-                              </div>
-                            </div>
+              <div className="sm:col-span-3">
+                <FormField
+                control={personnalInformationForm.control}
+                name="last_name"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel className='capitalize'>{t('register:last_name')}</FormLabel>
+                    <FormControl>
+                        <Input placeholder={t('register:last_name_placeholder')}
+                        type='text'
+                        {...field} 
+                        />
+                    </FormControl>
+                    {errors.last_name  &&
+                      <ErrorMessage 
+                        message={errors.last_name[0]}
+                      />
+                    }
+                    </FormItem>
+                )}
+                />
+              </div>
         
-                            <div className="sm:col-span-3">
-                              <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-customBlack">
-                                Last name
-                              </label>
-                              <div className="mt-2">
-                                <input
-                                  type="text"
-                                  name="last-name"
-                                  id="last-name"
-                                  autoComplete="family-name"
-                                  className="customProfileFormInputText"
-                                  value={userData.name}
-                                />
-                              </div>
-                            </div>
+              <div className="sm:col-span-3">
+                <FormField
+                control={personnalInformationForm.control}
+                name="name"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel className='capitalize'>{t('register:name')}</FormLabel>
+                    <FormControl>
+                        <Input placeholder={t('register:name_placeholder')}
+                        type='text'
+                        {...field} 
+                        />
+                    </FormControl>
+                    {errors.name  &&
+                      <ErrorMessage 
+                        message={errors.name[0]}
+                      />
+                    }
+                    </FormItem>
+                )}
+                />
+              </div>
         
-                            <div className="col-span-full">
-                              <label htmlFor="email" className="block text-sm font-medium leading-6 text-customBlack">
-                                Email address
-                              </label>
-                              <div className="mt-2">
-                                <input
-                                  id="email"
-                                  name="email"
-                                  type="email"
-                                  autoComplete="email"
-                                  className="customProfileFormInputText"
-                                  value={userData.email}
-                                />
-                              </div>
-                            </div>
-                          </div>
+              <div className="col-span-full">
+                <FormField
+                control={personnalInformationForm.control}
+                name="email"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel className='capitalize'>{t('register:email')}</FormLabel>
+                    <FormControl>
+                        <Input placeholder={t('register:email_placeholder')}
+                        type='email'
+                        {...field} 
+                        />
+                    </FormControl>
+                    {errors.email  &&
+                      <ErrorMessage 
+                        message={errors.email[0]}
+                      />
+                    }
+                    </FormItem>
+                )}
+                />
+              </div>
+            </div>
         
-                          <div className="mt-8 flex">
-                            <button
-                              type="submit"
-                              className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                            >
-                              Save
-                            </button>
-                          </div>
-                        </form>
-                      </div>
+            <div className="mt-8 flex">
+              <Button disabled={loading} type='submit' variant="dark" className='text-white disabled:bg-gray-400 disabled:text-customBlack'>
+                {t('common:save')}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
     )
 }
 

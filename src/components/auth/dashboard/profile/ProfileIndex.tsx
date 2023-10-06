@@ -9,7 +9,7 @@ interface Props {}
 
 function ProfileIndex(props: Props) {
     const {} = props
-    const { user, userLoading, hasRole } = useAuthContext() as AuthContextType;
+    const { user, csrf, userLoading, hasRole } = useAuthContext() as AuthContextType;
 
     const isAuthorized = hasRole('User');
     return (
@@ -17,7 +17,10 @@ function ProfileIndex(props: Props) {
             <div className="xl:pl-72">
                 <main>
                     <div className="divide-y divide-muted-foreground/20">
-                        <PersonnalInformation user={user}/>
+                        <PersonnalInformation 
+                        user={user}
+                        csrf={csrf}
+                        />
                         <UpdatePassword />
                         <LogoutOtherSession />
                         <DeleteAccount />
