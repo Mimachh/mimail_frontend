@@ -44,7 +44,6 @@ export const AuthProvider = ({children}: any) => {
             const { data } = await axios.get('/api/user');
             setUser(data.user); // Mettez à jour les informations de l'utilisateur
             setRoles(data.roles); // Mettez à jour les rôles de l'utilisateur
-            console.log(data.roles)
         } catch (error) {
             console.error(error);
             // Gérez les erreurs
@@ -54,7 +53,6 @@ export const AuthProvider = ({children}: any) => {
     }
 
     const hasRole = (requiredRole: UserRole) => {
-        console.log("roles",roles)
         return roles.includes(requiredRole);
     }
 

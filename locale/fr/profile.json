@@ -3,5 +3,10 @@
     "user_permanent_address": "Utilisez votre adresse mail principale où vous recevrez nos mails",
     "change_avatar": "Changer d'image",
 
-    "update_success": "Profil mis à jour !"
+    "update_success": "Profil mis à jour !",
+
+
+    "password_change": "Changer votre mot de passe",
+    "password_change_subtitle": "Modifier le mot de passe de votre compte.",
+    "password_update_success": "Mot de passe modifié avec succès !"
 }

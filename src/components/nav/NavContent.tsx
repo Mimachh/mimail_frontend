@@ -19,7 +19,6 @@ function NavContent(props: Props) {
 
     const authContext = useAuthContext() as AuthContextType;
     const { user } = authContext;
-    console.log(user);
     return (
         <>
         

@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 interface Props {
     classname?: string;
+    size?: string;
 }
 
 function Loader(props: Props) {
-    const { classname } = props
+    const { classname, size } = props
     const { t } = useTranslation();
     return (
         <>

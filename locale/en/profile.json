@@ -3,5 +3,9 @@
     "user_permanent_address": "Use a permanent address where you can receive mail.",
     "change_avatar": "Change avatar",
 
-    "update_success": "Your profile has been updated !"
+    "update_success": "Your profile has been updated !",
+
+    "password_change": "Change password,",
+    "password_change_subtitle": "Update your password associated with your account.",
+    "password_update_success": "Your password has been updated !"
 }

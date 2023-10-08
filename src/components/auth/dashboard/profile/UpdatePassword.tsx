@@ -1,20 +1,33 @@
+import { Form } from '@/components/ui/form'
+import { PasswordChangeValues } from '@/lib/auth/dashboard/typePasswordChangeForm';
 import React from 'react'
+import { useForm } from 'react-hook-form';
 
 interface Props {}
 
 function UpdatePassword(props: Props) {
     const {} = props
 
-    return (
-        <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-        <div>
-          <h2 className="text-base font-semibold leading-7 text-white">Change password</h2>
-          <p className="mt-1 text-sm leading-6 text-gray-400">
-            Update your password associated with your account.
-          </p>
-        </div>
+    const passwordChangeForm = useForm<PasswordChangeValues>({
+      defaultValues: {
+        current_password: "",
+        password: "",
+        confirm_password: "",
+      },
+    });
 
-        <form className="md:col-span-2">
+    const onSubmitPersonnalInformationForm = async (values: PasswordChangeValues) => {
+      console.log(values);
+
+      // Vérifier que les nouveaux mots de passe correspondent
+      // Si oui on envoie les data : si le current est bon, on remplace par l'ancien
+      // La route sera protégée par auth et par la même policy
+    }
+
+
+    return (
+      <Form {...passwordChangeForm}>
+        <form onSubmit={passwordChangeForm.handleSubmit(onSubmitPersonnalInformationForm)} className="md:col-span-2">
           <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
             <div className="col-span-full">
               <label htmlFor="current-password" className="block text-sm font-medium leading-6 text-white">
@@ -71,7 +84,8 @@ function UpdatePassword(props: Props) {
             </button>
           </div>
         </form>
-      </div>
+      </Form>
+
     )
 }
 

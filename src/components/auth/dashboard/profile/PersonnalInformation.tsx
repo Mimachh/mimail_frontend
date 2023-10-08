@@ -5,38 +5,42 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/ui/input";
 import useAuthContext from "@/context/AuthContext";
 import { PersonnalInformationValues } from "@/lib/auth/dashboard/typePersonnalInformationForm";
+import { ProfileSettingsProps } from "@/lib/auth/dashboard/typeProfileSettingsProps";
 import { errorToast } from "@/lib/toast/errorToast";
 import { successToast } from "@/lib/toast/successToast";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
+
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 
-interface Props {
-  user: any;
-  csrf: () => Promise<string>;
-}
+
 type FormErrors = {
   email?: string[];
   name?: string[];
   last_name?: string[];
 };
 
-function PersonalInformation(props: Props) {
-    const [loading, setLoading] = useState(false);
+function PersonalInformation(props: ProfileSettingsProps) {
     const [errors, setErrors] = useState<FormErrors>({});
+    const { formLoading, setFormLoading } = props;
     const userData = props.user;
     const csrfData = props.csrf;
     const { t } = useTranslation()
-    // console.log(userData)
-    // const authContext = useAuthContext() as AuthContextType;
-    // const { csrf } = authContext;
+    const { user, getUser, csrf, userLoading, hasRole } = useAuthContext() as AuthContextType;
+
+   
+
+    const [email, setEmail] = useState(userData.email);
     useEffect(() => {
+      setEmail(user.email);
       setTimeout(() => {
         setErrors({});
         // setLoading(false);
       }, 600);
-    }, []);
+    }, [user.email]);
+
 
     const personnalInformationForm = useForm<PersonnalInformationValues>({
       defaultValues: {
@@ -44,11 +48,12 @@ function PersonalInformation(props: Props) {
         last_name: userData.last_name,
         name: userData.name,
         // avatar: "",
-      }
+      },
     });
+ 
 
     const onSubmitPersonnalInformationForm = async (values: PersonnalInformationValues) => {
-      setLoading(true);
+      setFormLoading(true);
       await csrfData();
       setErrors({});
       try {
@@ -57,6 +62,8 @@ function PersonalInformation(props: Props) {
         if(response.data.message === 'Profil mis à jour avec succès') {
           successToast(t('profile:update_success'))
         }
+
+
       } catch (error: any) {
         errorToast(t('common:something_went_wrong'))
         console.log(error);
@@ -64,42 +71,32 @@ function PersonalInformation(props: Props) {
           setErrors(error.response.data.errors);
         }  
       } finally {
-        setLoading(false);
+        setFormLoading(false);
       }
     }
-    // Penser à ajouter le userLoading
-
 
     return (
-
-      <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-        <div>
-          <h2 className="text-base font-semibold leading-7">{t('profile:personal_information')}</h2>
-          <p className="mt-1 text-sm leading-6 text-gray-400">
-            {t('profile:personal_information')}
-          </p>
-        </div>
         <Form {...personnalInformationForm}>
           <form onSubmit={personnalInformationForm.handleSubmit(onSubmitPersonnalInformationForm)} className="md:col-span-2">
             <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
-                            <div className="col-span-full flex items-center gap-x-8">
-                              <img
-                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                alt=""
-                                className="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover"
-                              />
-                              <div>
+              <div className="col-span-full flex items-center gap-x-8">
+                <img
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt=""
+                  className="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover"
+                />
+                <div>
                                 
-                                {/* FORM FIELD ICI */}
-                                <button
-                                  type="button"
-                                  className="rounded-md bg-customYellow px-3 py-2 text-sm font-semibold shadow-sm hover:bg-customYellow-foreground"
-                                >
-                                  Change avatar
-                                </button>
-                                <p className="mt-2 text-xs leading-5 text-gray-400">JPG, GIF or PNG. 1MB max.</p>
-                              </div>
-                            </div>
+                  {/* FORM FIELD ICI */}
+                  <button
+                    type="button"
+                    className="rounded-md bg-customYellow px-3 py-2 text-sm font-semibold shadow-sm hover:bg-customYellow-foreground"
+                  >
+                    Change avatar
+                  </button>
+                  <p className="mt-2 text-xs leading-5 text-gray-400">JPG, GIF or PNG. 1MB max.</p>
+                </div>
+              </div>
         
               <div className="sm:col-span-3">
                 <FormField
@@ -172,13 +169,17 @@ function PersonalInformation(props: Props) {
             </div>
         
             <div className="mt-8 flex">
-              <Button disabled={loading} type='submit' variant="dark" className='text-white disabled:bg-gray-400 disabled:text-customBlack'>
-                {t('common:save')}
+              <Button disabled={formLoading} type='submit' variant="dark" className='text-white disabled:bg-customYellow disabled:text-customBlack'>
+                {formLoading ? (
+                  <Loader2 className="animate-spin"/>
+                ) : (
+                  <span>{t('common:save')}</span>
+                )}
+                
               </Button>
             </div>
           </form>
         </Form>
-      </div>
     )
 }
 
