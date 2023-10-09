@@ -51,13 +51,13 @@ export const sidebarRoutes = [
   {
       label: "Mes sites",
       icon: Layers,
-      href: "/",
+      href: "/1",
       color: 'text-sky-400'
   },
   {
       label: "Mes clés API",
       icon: KeyRound,
-      href: "/",
+      href: "/2",
       color: "text-violet-500"
   },
   {

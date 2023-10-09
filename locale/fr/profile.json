@@ -8,5 +8,10 @@
 
     "password_change": "Changer votre mot de passe",
     "password_change_subtitle": "Modifier le mot de passe de votre compte.",
-    "password_update_success": "Mot de passe modifié avec succès !"
+    "password_update_success": "Mot de passe modifié avec succès !",
+    "current_password": "Mot de passe actuel",
+    "current_password_placeholder": "Votre mot de passe actuel",
+    "new_password": "Nouveau mot de passe",
+    "new_password_placeholder": "Votre nouveau mot de passe",
+    "confirm_password": "Confirmez votre nouveau mot de passe"
 }

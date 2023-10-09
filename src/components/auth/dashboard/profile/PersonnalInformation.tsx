@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import useAuthContext from "@/context/AuthContext";
+
 import { PersonnalInformationValues } from "@/lib/auth/dashboard/typePersonnalInformationForm";
 import { ProfileSettingsProps } from "@/lib/auth/dashboard/typeProfileSettingsProps";
 import { errorToast } from "@/lib/toast/errorToast";
@@ -28,18 +29,11 @@ function PersonalInformation(props: ProfileSettingsProps) {
     const userData = props.user;
     const csrfData = props.csrf;
     const { t } = useTranslation()
-    const { user, getUser, csrf, userLoading, hasRole } = useAuthContext() as AuthContextType;
+    const { getUser } = useAuthContext() as AuthContextType;
 
-   
-
-    const [email, setEmail] = useState(userData.email);
-    useEffect(() => {
-      setEmail(user.email);
-      setTimeout(() => {
+       useEffect(() => {
         setErrors({});
-        // setLoading(false);
-      }, 600);
-    }, [user.email]);
+      }, []);
 
 
     const personnalInformationForm = useForm<PersonnalInformationValues>({
@@ -50,6 +44,7 @@ function PersonalInformation(props: ProfileSettingsProps) {
         // avatar: "",
       },
     });
+    
  
 
     const onSubmitPersonnalInformationForm = async (values: PersonnalInformationValues) => {
@@ -62,8 +57,7 @@ function PersonalInformation(props: ProfileSettingsProps) {
         if(response.data.message === 'Profil mis à jour avec succès') {
           successToast(t('profile:update_success'))
         }
-
-
+        getUser();
       } catch (error: any) {
         errorToast(t('common:something_went_wrong'))
         console.log(error);

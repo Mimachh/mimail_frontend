@@ -1,6 +1,6 @@
 import { Menu } from 'lucide-react'
 import React from 'react'
-import { SheetContent,Sheet, SheetTrigger } from '../ui/sheet'
+import { SheetContent,Sheet, SheetTrigger, SheetClose } from '../ui/sheet'
 import Sidebar from './Sidebar'
 
 
@@ -14,8 +14,12 @@ function MobileSidebar(props: Props) {
         <SheetTrigger>
               <Menu className="md:hidden"/>
         </SheetTrigger>
-        <SheetContent side="left" className="p-0">
-          <Sidebar />
+        <SheetContent
+         side="left" 
+         className="p-0"
+         closeId="closeSidebar"
+         >
+            <Sidebar />
         </SheetContent>
       </Sheet>
     )

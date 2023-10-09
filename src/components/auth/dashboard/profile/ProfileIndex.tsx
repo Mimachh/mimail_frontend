@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PersonnalInformation from './PersonnalInformation'
 import UpdatePassword from './UpdatePassword'
 import LogoutOtherSession from './LogoutOtherSession'
@@ -13,13 +13,11 @@ function ProfileIndex(props: Props) {
     const {} = props
     const { t } = useTranslation()
     const [formLoading, setFormLoading] = useState(false);
-    const { user, csrf, userLoading, hasRole } = useAuthContext() as AuthContextType;
+    const { user, getUser, csrf, userLoading, hasRole } = useAuthContext() as AuthContextType;
 
-    const [email, setEmail] = useState(user.email);
     const isAuthorized = hasRole('User');
 
-
-    <h2 className="text-base font-semibold leading-7">{t('profile:personal_information')}</h2>
+    // <h2 className="text-base font-semibold leading-7">{t('profile:personal_information')}</h2>
     //     <p className="mt-1 text-sm leading-6 text-gray-400">
     //       {t('profile:personal_information')}
 
@@ -37,8 +35,6 @@ function ProfileIndex(props: Props) {
                             csrf={csrf}
                             formLoading={formLoading}
                             setFormLoading={setFormLoading}
-                            email={email}
-                            setEmail={setEmail}
                             />
                         </FormSectionLayout>
 
@@ -46,7 +42,12 @@ function ProfileIndex(props: Props) {
                         title={t('profile:password_change')}
                         subtitle={t('profile:password_change_subtitle')}
                         >
-                            <UpdatePassword />
+                            <UpdatePassword 
+                            user={user}
+                            csrf={csrf}
+                            formLoading={formLoading}
+                            setFormLoading={setFormLoading}
+                            />
                         </FormSectionLayout>
                         
                         <LogoutOtherSession />
