@@ -4,3 +4,7 @@ export interface ProfileSettingsProps {
     setFormLoading: (value: boolean) => void;
     formLoading: boolean,
 }
+
+export interface SendEmailSettingsProps {
+    user: any;
+}

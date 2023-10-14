@@ -13,5 +13,16 @@
     "current_password_placeholder": "Votre mot de passe actuel",
     "new_password": "Nouveau mot de passe",
     "new_password_placeholder": "Votre nouveau mot de passe",
-    "confirm_password": "Confirmez votre nouveau mot de passe"
+    "confirm_password": "Confirmez votre nouveau mot de passe",
+
+    "verify_email_title": "Email verification",
+    "verify_email_subtitle": "Vérifiez votre adresse mail pour avoir accès à toutes nos features",
+    "verify_email_button": "Envoyez un lien de vérification",
+    "your_email_is_verified": "Votre email est vérifié",
+
+    "delete_account_title": "Supprimez votre compte",
+    "delete_account_subtitle": "Voulez-vous vraiment supprimer votre compte ?",
+    "account_deleted": "Compte supprimé",
+    "yes_delete_account": "Oui, supprimer mon compte",
+    "avatar_uploaded": "Avatar téléchargé avec succès !"
 }

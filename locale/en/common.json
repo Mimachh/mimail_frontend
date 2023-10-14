@@ -17,10 +17,17 @@
     "profile": "Profile",
     "settings": "Settings",
     "api": "API Keys",
+    "sites": "My sites",
     "send": "Send",
 
     "welcome_back": "Welcome back !",
     "something_went_wrong": "Something went wrong !",
     "unauthorized_role": "You're not allowed to do this !",
-    "save": "Save"
+    "save": "Save",
+
+    "confirm_modale_title": "Are you sure ?",
+    "confirm_modale_description": "This action cannot be undone.",
+
+    "cancel": "Cancel",
+    "continue": "Continue"
 }

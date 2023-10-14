@@ -19,6 +19,7 @@
     "profile": "Mon profil",
     "settings": "Paramètres",
     "api": "Mes clés API",
+    "sites": "Mes sites",
 
     "send": "Envoyer",
 
@@ -26,5 +27,11 @@
     "something_went_wrong": "Une erreur est survenue !",
 
     "unauthorized_role": "Vous n'êtes pas autorisé à faire ça !",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+
+    "confirm_modale_title": "Êtes-vous sûr ?",
+    "confirm_modale_description": "Cette action est irréversible.",
+
+    "cancel": "Annuler",
+    "continue": "Continuer"
 }

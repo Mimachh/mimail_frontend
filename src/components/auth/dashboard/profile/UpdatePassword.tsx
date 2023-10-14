@@ -75,7 +75,7 @@ function UpdatePassword(props: ProfileSettingsProps) {
           const response = await axios.put(`/api/user/${user.id}/password-update`, values);
           console.log(response)
           if(response.data.message === 'Mot de passe modifié') {
-            successToast(t('profile:update_success'))
+            successToast(t('profile:password_update_success'))
           }
           getUser();
           setErrors({});
@@ -183,7 +183,6 @@ function UpdatePassword(props: ProfileSettingsProps) {
                 ) : (
                   <span>{t('common:save')}</span>
                 )}
-                
               </Button>
             </div>
         </form>

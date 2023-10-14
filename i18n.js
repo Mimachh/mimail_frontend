@@ -11,6 +11,7 @@ import registerFormTranslationEN from "./locale/en/register.json"
 import emailTranslationEN from "./locale/en/email.json"
 import page400TranslationEN from "./locale/en/400.json"
 import profileTranslationEN from "./locale/en/profile.json"
+import sitesTranslationEN from "./locale/en/sites.json"
 
 import homepageTranslationFR from './locale/fr/homepage.json'
 import commonTranslationFR from './locale/fr/common.json'
@@ -19,7 +20,7 @@ import registerFormTranslationFR from "./locale/fr/register.json"
 import emailTranslationFR from "./locale/fr/email.json"
 import page400TranslationFR from "./locale/fr/400.json"
 import profileTranslationFR from "./locale/fr/profile.json"
-
+import sitesTranslationFR from "./locale/fr/sites.json"
 
 const resources = {
   en: {
@@ -29,7 +30,8 @@ const resources = {
     register: registerFormTranslationEN,
     email: emailTranslationEN,
     page400: page400TranslationEN,
-    profile: profileTranslationEN
+    profile: profileTranslationEN,
+    site: sitesTranslationEN
   },
   fr: {
     homepage: homepageTranslationFR,
@@ -38,7 +40,8 @@ const resources = {
     register: registerFormTranslationFR,
     email: emailTranslationFR,
     page400: page400TranslationFR,
-    profile: profileTranslationFR
+    profile: profileTranslationFR,
+    site: sitesTranslationFR
   }
 }
 i18n

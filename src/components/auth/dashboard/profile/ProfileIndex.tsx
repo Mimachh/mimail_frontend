@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import PersonnalInformation from './PersonnalInformation'
 import UpdatePassword from './UpdatePassword'
-import LogoutOtherSession from './LogoutOtherSession'
+// import LogoutOtherSession from './LogoutOtherSession'
 import DeleteAccount from './DeleteAccount'
 import useAuthContext from '@/context/AuthContext'
 import FormSectionLayout from './FormSectionLayout'
 import { useTranslation } from 'react-i18next'
+import SendVerifyEmail from './SendVerifyEmail'
 
 interface Props {}
 
@@ -14,7 +15,6 @@ function ProfileIndex(props: Props) {
     const { t } = useTranslation()
     const [formLoading, setFormLoading] = useState(false);
     const { user, getUser, csrf, userLoading, hasRole } = useAuthContext() as AuthContextType;
-
     const isAuthorized = hasRole('User');
 
     // <h2 className="text-base font-semibold leading-7">{t('profile:personal_information')}</h2>
@@ -49,9 +49,23 @@ function ProfileIndex(props: Props) {
                             setFormLoading={setFormLoading}
                             />
                         </FormSectionLayout>
+
+                        <FormSectionLayout
+                        title={t('profile:verify_email_title')}
+                        subtitle={t('profile:verify_email_subtitle')}
+                        >
+                            <SendVerifyEmail 
+                            user={user}
+                            />
+                        </FormSectionLayout>
                         
-                        <LogoutOtherSession />
-                        <DeleteAccount />
+                        <FormSectionLayout
+                        title={t('profile:delete_account_title')}
+                        subtitle={t('profile:delete_account_subtitle')}
+                        >
+                            <DeleteAccount />
+                        </FormSectionLayout>
+                        
                     </div>
                 </main>
             </div>

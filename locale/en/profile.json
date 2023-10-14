@@ -12,5 +12,16 @@
     "current_password_placeholder": "Your current password",
     "new_password": "New password",
     "new_password_placeholder": "Your new password",
-    "confirm_password": "Confirm password"
+    "confirm_password": "Confirm password",
+
+    "verify_email_title": "Email verification",
+    "verify_email_subtitle": "Verify your email to get full access to the features",
+    "verify_email_button": "Send email verification",
+    "your_email_is_verified": "Your email is verified",
+
+    "delete_account_title": "Delete your account",
+    "delete_account_subtitle": "Do you want to delete your account ?",
+    "account_deleted": "Account deleted",
+    "yes_delete_account": "Yes, delete my account",
+    "avatar_uploaded": "Avatar uploaded"
 }

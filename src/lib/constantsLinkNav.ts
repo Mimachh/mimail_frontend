@@ -1,5 +1,6 @@
 // Menu components Desktop
 import { LayoutDashboard, Settings, KeyRound, User, Layers } from "lucide-react"
+import { useTranslation } from "react-i18next";
 
 export const navLinkComponent: { title: string; href: string; description: string }[] = [
     {
@@ -39,39 +40,41 @@ export const navLinkComponent: { title: string; href: string; description: strin
     },
 ]
 
+export const getSidebarRoutes = () => {
+  const { t } = useTranslation();
 
-export const sidebarRoutes = [
-  {
-      label: "Dashboard",
+  return [
+    {
+      label: t('common:dashboard'),
       icon: LayoutDashboard,
-      href: "/dashboard",
-      color: "text-sky-500",
-     
-  },
-  {
-      label: "Mes sites",
+      href: '/dashboard',
+      color: 'text-sky-500',
+    },
+    {
+      label: t('common:sites'),
       icon: Layers,
-      href: "/1",
-      color: 'text-sky-400'
-  },
-  {
-      label: "Mes clés API",
+      href: '/sites',
+      color: 'text-sky-400',
+    },
+    {
+      label: t('common:api'),
       icon: KeyRound,
-      href: "/2",
-      color: "text-violet-500"
-  },
-  {
-      label: "Mon profil",
+      href: '/2',
+      color: 'text-violet-500',
+    },
+    {
+      label: t('common:profile'),
       icon: User,
-      href: "/profile",
-      color: "text-pink-700",
-      beta: true
-  },
-  {
-      label: "Paramètres",
+      href: '/profile',
+      color: 'text-pink-700',
+      beta: true,
+    },
+    {
+      label: t('common:settings'),
       icon: Settings,
-      href: "/video",
-      color: "text-orange-700",
-      beta: true
-  }
-]
+      href: '/video',
+      color: 'text-orange-700',
+      beta: true,
+    },
+  ];
+};

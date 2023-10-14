@@ -13,6 +13,8 @@ import AlreadyVerifiedEmail from './views/Emails/AlreadyVerifiedEmail';
 import ForgottenPassword from './views/auth/ForgottenPassword';
 import ResetPassword from './views/auth/ResetPassword';
 import ProfileIndex from './components/auth/dashboard/profile/ProfileIndex';
+import Sites from './views/auth/Sites/Sites';
+import CreateSite from './views/auth/Sites/CreateSite';
 
 
 
@@ -49,6 +51,8 @@ const AppRoutes = () => {
       <Route element={<AuthLayout />}>
         <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/profile' element={<ProfileIndex />}></Route>
+        <Route path='/sites' element={<Sites />}></Route>
+        <Route path='/site/create' element={<CreateSite />}></Route>
       </Route>
     </Routes>
   );

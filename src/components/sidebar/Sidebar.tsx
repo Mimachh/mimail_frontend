@@ -1,18 +1,15 @@
 import { NavLink } from 'react-router-dom'
 import { cn } from '@/lib/utils'
 import { Badge } from '../ui/badge'
-import { sidebarRoutes } from '@/lib/constantsLinkNav'
+import { getSidebarRoutes } from '@/lib/constantsLinkNav'
 import { ToggleLang } from '../toggles/lang'
 
 interface Props {}
 
-
-
-
 function Sidebar(props: Props) {
     const {} = props
     const appName = import.meta.env.VITE_APP_NAME;
-    
+    const sidebarRoutes = getSidebarRoutes();
     const close = () => {
         // Récupérez le bouton avec l'ID "close" en utilisant JavaScript
         const closeButton = document.getElementById("closeSidebar");
@@ -27,7 +24,6 @@ function Sidebar(props: Props) {
         <div 
             // bg-gradient-to-b from-customYellow to-muted-foreground/90 
     className="space-y-4 py-4 flex flex-col h-full
-
     bg-customBlack
     text-customYellow
     "
