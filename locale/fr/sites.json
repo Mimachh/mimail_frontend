@@ -2,5 +2,11 @@
     "sites_header_title": "Mes sites",
     "sites_header_description": "Gérez vos sites.",
     "site_name": "Nom",
-    "monthly_mail": "Compte de mails du mois"
+    "monthly_mail": "Compte de mails du mois",
+    "create_a_site_title": "Ajouter un site",
+    "create_a_site_description": "Créer un espace pour connecter votre site.",
+    "create_website_name": "Nom du site",
+    "create_website_name_description": "Utile pour enregistrer et retrouver votre site dans notre service.",
+    "create_website_url": "Adresse du site",
+    "site_created": "Site ajouté avec succès !"
 }

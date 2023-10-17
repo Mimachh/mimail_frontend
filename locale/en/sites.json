@@ -2,5 +2,11 @@
     "sites_header_title": "Sites",
     "sites_header_description": "Manage your sites here.",
     "site_name": "Name",
-    "monthly_mail": "Monthly mail count"
+    "monthly_mail": "Monthly mail count",
+    "create_a_site_title": "Add a Site",
+    "create_a_site_description": "Create a space for your website to connect to",
+    "create_website_name": "Website name",
+    "create_website_name_description": "Used to reference and retrieve your site on our service.",
+    "create_website_url": "Website URL",
+    "site_created": "Site added with success !"
 }

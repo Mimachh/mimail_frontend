@@ -33,5 +33,13 @@
     "confirm_modale_description": "Cette action est irréversible.",
 
     "cancel": "Annuler",
-    "continue": "Continuer"
+    "continue": "Continuer",
+    "add_new": "Ajouter",
+    "search": "Recherche",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "update": "Mettre à jour",
+    "delete": "Supprimer",
+
+    "date_format": "fr-FR"
 }

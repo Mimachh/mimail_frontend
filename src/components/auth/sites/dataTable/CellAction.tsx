@@ -4,6 +4,7 @@ import { useState } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface  CellActionProps {
     data: SiteColumn;
@@ -14,7 +15,7 @@ data
 }) => {
     const [openDeleteSiteModal, setOpenDeleteSiteModal] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const { t } = useTranslation();
     const onConfirm = () => {
 
     };
@@ -39,13 +40,13 @@ data
                 <DropdownMenuItem 
                 className="cursor-pointer">
                     <Edit className="mr-2 h-4 w-4" />
-                    Update
+                    {t('common:update')}
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                 className="cursor-pointer"
                 onClick={() => setOpenDeleteSiteModal(true)}>
                     <Trash className="mr-2 h-4 w-4" />
-                    Delete
+                    {t('common:delete')}
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

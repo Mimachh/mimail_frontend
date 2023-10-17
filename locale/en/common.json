@@ -29,5 +29,14 @@
     "confirm_modale_description": "This action cannot be undone.",
 
     "cancel": "Cancel",
-    "continue": "Continue"
+    "continue": "Continue",
+    "add_new": "Add New",
+    "search": "Search",
+    "previous": "Previous",
+    "next": "Next",
+    "update": "Update",
+    "delete": "Delete",
+
+    "date_format": "en-US"
+
 }

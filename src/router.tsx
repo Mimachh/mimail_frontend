@@ -15,6 +15,7 @@ import ResetPassword from './views/auth/ResetPassword';
 import ProfileIndex from './components/auth/dashboard/profile/ProfileIndex';
 import Sites from './views/auth/Sites/Sites';
 import CreateSite from './views/auth/Sites/CreateSite';
+import ShowSite from './views/auth/Sites/ShowSite';
 
 
 
@@ -53,6 +54,7 @@ const AppRoutes = () => {
         <Route path='/profile' element={<ProfileIndex />}></Route>
         <Route path='/sites' element={<Sites />}></Route>
         <Route path='/site/create' element={<CreateSite />}></Route>
+        <Route path="/sites/:id" element={<ShowSite />}></Route>
       </Route>
     </Routes>
   );
