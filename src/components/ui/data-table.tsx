@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -44,6 +44,7 @@ export function DataTable<TData, TValue>({
       columnFilters,
     }
   });
+
   const { t } = useTranslation()
   return (
     <div>

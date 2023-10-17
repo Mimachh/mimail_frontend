@@ -5,6 +5,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import DeleteButton from "../DeleteButton";
+import useAuthContext from "@/context/AuthContext";
+import axios from "@/api/axios";
+import { redirect, useLocation, useNavigate } from "react-router-dom";
 
 interface  CellActionProps {
     data: SiteColumn;
@@ -16,8 +20,24 @@ data
     const [openDeleteSiteModal, setOpenDeleteSiteModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const { t } = useTranslation();
-    const onConfirm = () => {
-
+    const { csrf, user } = useAuthContext() as AuthContextType;
+    const navigate = useNavigate();
+   
+    const onConfirm = async () => {
+        setLoading(true);
+        await csrf();
+        try {
+           
+            await axios.delete(`/api/site/${user.id}/${data.id}/delete/`);
+            const randomString = Math.random().toString(36).substring(7);
+            // window.location.reload();
+           navigate('/dashboard')
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+            setOpenDeleteSiteModal(false);
+        }
     };
     
     return (
@@ -44,7 +64,8 @@ data
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                 className="cursor-pointer"
-                onClick={() => setOpenDeleteSiteModal(true)}>
+                onClick={() => setOpenDeleteSiteModal(true)}
+                >
                     <Trash className="mr-2 h-4 w-4" />
                     {t('common:delete')}
                 </DropdownMenuItem>

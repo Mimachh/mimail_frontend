@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import HeadingDashboard from '../dashboard/HeadingDashboard'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
@@ -18,6 +18,7 @@ function SitesClient(props: Props) {
     const { data, loading } = props
     const { t } = useTranslation();
     const SiteColumns = getSiteColumns();
+    
     return (
         <>
             <div className='flex items-center justify-between'>
@@ -25,7 +26,7 @@ function SitesClient(props: Props) {
                 title={t('site:sites_header_title')}
                 description={t('site:sites_header_description')}
                 />
-                <Button size="sm" variant="dark" className='w-fit h-fit'>
+                <Button disabled={loading} size="sm" variant="dark" className='w-fit h-fit'>
                     <Link to="/site/create" className='flex items-center px-2 py-2'>
                         <Plus className='mr-2 h-4 w-4' />
                         {t('common:add_new')}

@@ -1,5 +1,6 @@
 import axios from '@/api/axios';
 import HeadingDashboard from '@/components/auth/dashboard/HeadingDashboard';
+import DeleteButton from '@/components/auth/sites/DeleteButton';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import useAuthContext from '@/context/AuthContext';
@@ -8,10 +9,10 @@ import { UserSiteData } from '@/lib/auth/typeUserSite';
 import { onCopy } from '@/lib/copyToClipboard';
 import { errorToast } from '@/lib/toast/errorToast';
 import { successToast } from '@/lib/toast/successToast';
-import { Copy, Eye, EyeOff } from 'lucide-react';
+import { Copy, Edit, Eye, EyeOff, Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 interface Props {}
 
@@ -43,56 +44,103 @@ function ShowSite(props: Props) {
 
     return (
 <div className='px-4'>
-     <HeadingDashboard 
-     title='titre'
-     description='des'
-     />
+     <div className='flex items-center justify-between'>
+        <HeadingDashboard 
+        title={userSite?.name || "Your site"}
+        description={t('site:sites_header_description')}
+        />
+        <div className='flex items-center'>
+            {!loading && (
+            <>
+                <Button 
+                type='button'
+                className='px-2' variant="ghost">
+                    <Link to=""><Edit className='w-4 h-4 text-blue-700'/></Link>
+                </Button>
+                <DeleteButton 
+                classNameButton='px-2' 
+                siteId={userSite?.id}
+                />
+            </>
+            )}
+        </div>
+     </div>
      <Separator />
       <div className="mt-6 border-t border-gray-100">
         <dl className="divide-y divide-gray-100">
           <div className="bg-yellow-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Nom du site</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{userSite?.name}</dd>
+            <dt className="table-dt">{t('site:create_website_name')}</dt>
+            <dd className="table-dd">{
+                loading ? (
+                    <Loader2 className='animate animate-spin' />
+                ) : (
+                    userSite?.name
+                )
+            }</dd>
           </div>
           <div className="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Url</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{userSite?.url}</dd>
+            <dt className="table-dt">{t('site:create_website_url')}</dt>
+            <dd className="table-dd">{
+                loading ? (
+                    <Loader2 className='animate animate-spin' />
+                ) : (
+                    userSite?.url
+                )
+            }</dd>
           </div>
           <div className="bg-yellow-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Mails envoyés dans le mois</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{userSite?.monthly_mail}</dd>
+            <dt className="table-dt">{t('site:monthly_mail_table')}</dt>
+            <dd className="table-dd">{
+                loading ? (
+                    <Loader2 className='animate animate-spin' />
+                ) : (
+                    userSite?.monthly_mail
+                )
+            }</dd>
           </div>
           <div className="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Mails envoyés au total</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{userSite?.total_mail}</dd>
+            <dt className="table-dt">{t('site:total_mail_table')}</dt>
+            <dd className="table-dd">{
+                loading ? (
+                    <Loader2 className='animate animate-spin' />
+                ) : (
+                    userSite?.total_mail
+                )
+            }</dd>
           </div>
           <div className="bg-yellow-100 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Clé API</dt>
+            <dt className="table-dt">{t('site:api_key')}</dt>
             <dd 
             className="w-full mt-1 text-sm leading-6  
             text-gray-700 sm:col-span-2 sm:mt-0
             flex items-center gap-1
             ">
-                <div className=" w-[70%] overflow-x-auto flex flex-wrap bg-white rounded-md">
-                    {formatToken(userSite?.token, hideToken)}
-                </div>
-                <button type='button'
-                className='w-fit h-fit px-0 py-0 text-customBlack'
-                onClick={() => setHideToken(!hideToken)}
-                >
-                    { hideToken ? (
-                        <Eye className='h-5 w-5'/>
+                
+                    {loading ? (
+                       <Loader2 className='animate animate-spin' /> 
                     ) : (
-                        <EyeOff className='h-5 w-5' />
+                    <>
+                        <div className=" w-[70%] overflow-x-auto flex flex-wrap bg-white rounded-md">
+                        {formatToken(userSite?.token, hideToken)}
+                        </div>
+                        <button type='button'
+                        className='w-fit h-fit px-0 py-0 text-customBlack'
+                        onClick={() => setHideToken(!hideToken)}
+                        >
+                            { hideToken ? (
+                                <Eye className='h-5 w-5'/>
+                            ) : (
+                                <EyeOff className='h-5 w-5' />
+                            )}
+                        </button>
+                        <button type='button'
+                        className='w-fit h-fit px-0 py-0 text-customBlack'
+                        onClick={() => onCopy(userSite?.token, t)}
+                        >
+                        <Copy className='h-5 w-5 text-customBlack' />
+                        </button>
+                    </>
                     )}
-                </button>
-                <button type='button'
-                className='w-fit h-fit px-0 py-0 text-customBlack'
-                onClick={() => onCopy(userSite?.token, t)}
-                >
-                <Copy className='h-5 w-5 text-customBlack' />
-                </button>
- 
             </dd>
           </div>
         </dl>

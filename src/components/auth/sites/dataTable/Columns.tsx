@@ -14,6 +14,7 @@ export type SiteColumn = {
 
 
 
+
 export const getSiteColumns: () => ColumnDef<SiteColumn>[] = () => {
     const { t } = useTranslation();
   

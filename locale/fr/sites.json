@@ -8,5 +8,8 @@
     "create_website_name": "Nom du site",
     "create_website_name_description": "Utile pour enregistrer et retrouver votre site dans notre service.",
     "create_website_url": "Adresse du site",
-    "site_created": "Site ajouté avec succès !"
+    "site_created": "Site ajouté avec succès !",
+    "monthly_mail_table": "Mails envoyés ce mois",
+    "total_mail_table": "Total des mails envoyés",
+    "api_key": "Clé API"
 }
